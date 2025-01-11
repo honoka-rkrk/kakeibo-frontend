@@ -10,8 +10,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider } from "@ui-kitten/components";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { default as theme } from "./theme.json";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 import { useColorScheme } from "@/components/useColorScheme";
 
@@ -56,14 +57,23 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="login" />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        </Stack>
-      </ThemeProvider>
-    </ApplicationProvider>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen name="login" />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+            <Stack.Screen
+              name="registerPhoto"
+              options={{ presentation: "modal" }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </ApplicationProvider>
+    </>
   );
 }

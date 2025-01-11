@@ -2,6 +2,7 @@ import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable } from "react-native";
+import { useTheme } from "@ui-kitten/components";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -17,11 +18,20 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const theme = useTheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        headerStyle: {
+          // backgroundColor: theme["color-primary-500"], // ヘッダー背景色
+        },
+        headerTintColor: theme["color-primary-500"], // ヘッダーテキスト色
+        tabBarStyle: {
+          // backgroundColor: theme["color-primary-500"], // タブバーの背景色
+        },
+        tabBarActiveTintColor: theme["color-primary-700"], // アクティブタブの色
+        tabBarInactiveTintColor: theme["color-primary-500"], // 非アクティブタブの色
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
@@ -59,6 +69,13 @@ export default function TabLayout() {
         name="home"
         options={{
           title: "Tab home",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="collection"
+        options={{
+          title: "コレクション",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
