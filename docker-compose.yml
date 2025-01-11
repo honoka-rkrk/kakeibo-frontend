@@ -1,0 +1,15 @@
+services:
+  kakeibo:
+    container_name: kakeibo-react-native
+    tty: true
+    build:
+      context: ./kakeibo
+      dockerfile: ./Dockerfile
+    volumes:
+      - node_modules:/kakeibo/node_modules
+      - ./kakeibo:/kakeibo
+    env_file: ./kakeibo/.env
+    ports:
+      - 8081:8081
+volumes:
+  node_modules:
