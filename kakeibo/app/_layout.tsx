@@ -5,6 +5,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components';
+import { default as theme } from './theme.json';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -49,11 +52,13 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
+    <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
+    </ApplicationProvider>
   );
 }
